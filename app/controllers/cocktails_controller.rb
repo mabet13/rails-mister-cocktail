@@ -23,7 +23,8 @@ class CocktailsController < ApplicationController
   end
 
   def new_ingredient
-    @ingredient = Ingredient.new(ingredient_params)
+    ingredient = Ingredient.new(ingredient_params)
+    ingredient.save
     # new ingredient
   end
 

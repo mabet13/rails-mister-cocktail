@@ -8,10 +8,6 @@
     "popper.js": "^1.15.0"
   },
   "devDependencies": {
-
-    "webpack-dev-server": "^3.6.0",
-
     "webpack-dev-server": "^3.5.1"
-
   }
 }
