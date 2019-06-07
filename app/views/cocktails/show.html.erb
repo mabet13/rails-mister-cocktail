@@ -1,0 +1,45 @@
+<div id="getNewIngredientsModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">New ingredient</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+          <form action="/new_ingredient" method="POST">
+            <input id="newIngredient" name="ingredient[name]" type="text" class="form-control">
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+          </div>
+          <div class="modal-footer">
+            <button id="confirmNewIngredient"type="submit" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </form>
+        </div>
+  </div>
+</div>
+
+
+
+<div class="container">
+  <h2><%= @cocktail.name %></h2>
+  <br>
+  <ul>
+    <% @cocktail.doses.each do |dose| %>
+    <li>
+      <%= dose.ingredient.name + ' [' + dose.description + '] ' %>
+      <%= link_to "Remove", dose_path(dose), method: :delete, data: { confirm: "Are you sure?" } %>
+    </li>
+    <% end %>
+  </ul>
+  <%= simple_form_for [@cocktail, @dose] do |f| %>
+    <%= f.association :ingredient, as: :select %>
+    <button id="addIngredientBtn" type="button" class="btn btn-primary">Add ingredient</button>
+    <%= f.input :description %>
+    <%= f.button :submit, class: "btn btn-info" %>
+  <% end %>
+  <br>
+  <%= link_to "Cocktails page", cocktails_path %>
+</div>
