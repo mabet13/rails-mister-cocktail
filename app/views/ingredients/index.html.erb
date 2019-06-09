@@ -1,0 +1,21 @@
+<%= render 'partials/navbar'  %>
+<div class="content">
+  <div class="mycard">
+    <!--%= cl_image_tag(@cocktail.photo, crop: :scale, width: 400) %-->
+    <br>
+    <div class="inside">
+      <p>Ingredients</p>
+      <ul>
+        <% @ingredients.each do |ingredient| %>
+        <li>
+          <%= ingredient.name  %>
+          <!--%= link_to ('<i class="fas fa-times"></i>').html_safe, ingredient_path(ingredient) , method: :delete,
+          data: { confirm: "Are you sure?" } %-->
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+
+

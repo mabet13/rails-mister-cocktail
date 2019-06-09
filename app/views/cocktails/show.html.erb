@@ -7,39 +7,55 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-        <div class="modal-body">
-          <form action="/new_ingredient" method="POST">
-            <input id="newIngredient" name="ingredient[name]" type="text" class="form-control">
-              <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-          </div>
+      <div class="modal-body">
+        <form action="/new_ingredient" method="POST">
+          <input id="newIngredient" name="ingredient[name]" type="text" class="form-control">
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
           <div class="modal-footer">
             <button id="confirmNewIngredient"type="submit" class="btn btn-primary">Save changes</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </form>
-        </div>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
 
+<%= render 'partials/navbar'  %>
+<div class="content">
+  <div class="mycard">
+    <%= cl_image_tag(@cocktail.photo, crop: :scale, width: 400) %>
+    <br>
+    <div class="inside">
+      <h3><%= @cocktail.name %></h3>
+      <p>Ingredients</p>
+      <ul>
+        <% @cocktail.doses.each do |dose| %>
+        <li>
+          <%= dose.ingredient.name + ' [' + dose.description + '] ' %>
+          <%= link_to ('<i class="fas fa-times"></i>').html_safe, dose_path(dose) , method: :delete,
+          data: { confirm: "Are you sure?" } %>
 
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 
-<div class="container">
-  <h2><%= @cocktail.name %></h2>
+  <br><br>
+
+  Add a new ingredient:<br>
+  <div class="mycard">
+    <div class="inside">
+      <%= simple_form_for [@cocktail, @dose] do |f| %>
+        <!--%= cl_image_tag @cocktail.photo, height: 300, width: 400, crop: :fill % -->
+        <%= f.association :ingredient, as: :select %>
+        <!--button id="addIngredientBtn" type="button" class="btn btn-primary">Add new ingredient</button-->
+        <%= f.input :description %>
+        <%= f.button :submit, class: "btn btn-info" %>
+      <% end %>
+    </div>
+  </div>
   <br>
-  <ul>
-    <% @cocktail.doses.each do |dose| %>
-    <li>
-      <%= dose.ingredient.name + ' [' + dose.description + '] ' %>
-      <%= link_to "Remove", dose_path(dose), method: :delete, data: { confirm: "Are you sure?" } %>
-    </li>
-    <% end %>
-  </ul>
-  <%= simple_form_for [@cocktail, @dose] do |f| %>
-    <%= f.association :ingredient, as: :select %>
-    <button id="addIngredientBtn" type="button" class="btn btn-primary">Add ingredient</button>
-    <%= f.input :description %>
-    <%= f.button :submit, class: "btn btn-info" %>
-  <% end %>
-  <br>
-  <%= link_to "Cocktails page", cocktails_path %>
 </div>

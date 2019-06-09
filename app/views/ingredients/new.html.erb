@@ -1,0 +1,30 @@
+<%= render 'partials/navbar'  %>
+<div class="content">
+  <div class="mycard">
+    <!--%= cl_image_tag(@cocktail.photo, crop: :scale, width: 400) %-->
+    <br>
+    <div class="inside">
+      <h3>Existing ingredients</h3>
+      <ul>
+        <% @ingredients.each do |ingredient| %>
+        <li>
+          <%= ingredient.name  %>
+          <!--%= link_to ('<i class="fas fa-times"></i>').html_safe, dose_path(dose) , method: :delete,
+          data: { confirm: "Are you sure?" } %-->
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <br>
+  <div class="mycard">
+    <div class="inside">
+    <h3>New ingredient</h3>
+    <%= simple_form_for(@ingredient) do |f| %>
+      <%= f.input :name %>
+      <%= f.button :submit, class: "btn btn-primary" %>
+    <% end %>
+    </div>
+  </div>
+</div>
+

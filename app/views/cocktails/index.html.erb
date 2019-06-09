@@ -1,8 +1,23 @@
-<h1>Cocktails</h1>
-<ul>
-  <% @cocktails.each do |cocktail| %>
-  <li><%= link_to cocktail.name, cocktail_path(cocktail) %></li>
-  <% end %>
-</ul>
-<hr>
-<%= link_to 'Add new cocktail', new_cocktail_path %>
+<%= render 'partials/navbar'  %>
+
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://res.cloudinary.com/gattovi/image/upload/v1559918714/pub_e4hain.jpg);">
+  <div class="container">
+    <h1>Come drink where "everybody know your name" until you forget theirs!</h1>
+  </div>
+</div>
+<br>
+<h1 style="text-align: center;">Our cocktails</h1>
+<br>
+<div>
+  <ul class="mycontainer">
+    <% @cocktails.each do |cocktail| %>
+      <li class="mycardsmall">
+        <div>
+           <%= cl_image_tag(cocktail.photo, crop: :scale, width: 200, height: 250, crop: :fit, class:"picture" ) %><br>
+          <%= link_to cocktail.name, cocktail_path(cocktail) %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
+<br>
